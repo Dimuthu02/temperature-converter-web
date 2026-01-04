@@ -1,3 +1,6 @@
+// Constants
+const DECIMAL_PLACES = 2;
+
 // Get input elements
 const celsiusInput = document.getElementById('celsius');
 const fahrenheitInput = document.getElementById('fahrenheit');
@@ -17,8 +20,8 @@ celsiusInput.addEventListener('input', function() {
     const fahrenheit = (celsius * 9/5) + 32;
     const kelvin = celsius + 273.15;
     
-    fahrenheitInput.value = fahrenheit.toFixed(2);
-    kelvinInput.value = kelvin.toFixed(2);
+    fahrenheitInput.value = fahrenheit.toFixed(DECIMAL_PLACES);
+    kelvinInput.value = kelvin.toFixed(DECIMAL_PLACES);
 });
 
 fahrenheitInput.addEventListener('input', function() {
@@ -34,8 +37,8 @@ fahrenheitInput.addEventListener('input', function() {
     const celsius = (fahrenheit - 32) * 5/9;
     const kelvin = celsius + 273.15;
     
-    celsiusInput.value = celsius.toFixed(2);
-    kelvinInput.value = kelvin.toFixed(2);
+    celsiusInput.value = celsius.toFixed(DECIMAL_PLACES);
+    kelvinInput.value = kelvin.toFixed(DECIMAL_PLACES);
 });
 
 kelvinInput.addEventListener('input', function() {
@@ -47,10 +50,17 @@ kelvinInput.addEventListener('input', function() {
         return;
     }
     
+    // Kelvin cannot be negative (absolute zero is 0K)
+    if (kelvin < 0) {
+        celsiusInput.value = '';
+        fahrenheitInput.value = '';
+        return;
+    }
+    
     // Convert Kelvin to Celsius and Fahrenheit
     const celsius = kelvin - 273.15;
     const fahrenheit = (celsius * 9/5) + 32;
     
-    celsiusInput.value = celsius.toFixed(2);
-    fahrenheitInput.value = fahrenheit.toFixed(2);
+    celsiusInput.value = celsius.toFixed(DECIMAL_PLACES);
+    fahrenheitInput.value = fahrenheit.toFixed(DECIMAL_PLACES);
 });
